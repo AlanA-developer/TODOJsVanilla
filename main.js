@@ -19,8 +19,8 @@ valorSubmit.addEventListener('click', () => {
 })
 
 valorDelete.addEventListener('click', () => {
-    let valorAEliminar = document.getElementById('input_eliminar_tareas').value
-    let hijo = document.getElementById(valorAEliminar)
+    let valorAEliminar = document.getElementById('input_eliminar_tareas').value;
+    let hijo = document.getElementById(valorAEliminar);
     if (valorAEliminar > contador) {
         alert('Esa tarea no existe')
 		document.getElementById('input_eliminar_tareas').value = '';
@@ -28,7 +28,8 @@ valorDelete.addEventListener('click', () => {
     if (valorAEliminar <= 0) {
         alert('Debes ingresar una tarea o sólo poner números positivos')
     } else {
-        hijo.className = 'eliminado'
+        hijo.className = 'eliminado';
+        hijo.append(', tarea terminada a las:  ' + moment().format('LTS'))
     }
 	document.getElementById('input_eliminar_tareas').value = '';
 })
@@ -36,7 +37,7 @@ valorDelete.addEventListener('click', () => {
 function addElemento(tarea) {
     let tareas = document.getElementById("lista_tareas");
     let h2 = document.createElement("h2");
-    h2.setAttribute('id', contador)
+    h2.setAttribute('id', contador);
     h2.innerHTML = tarea;
     tareas.appendChild(h2);
 }
