@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: x-large;
-    background-color: rgb(241, 228, 211);
+    background-color: rgb(240, 230, 218);
 }
 
 .titulo {
@@ -47,7 +47,6 @@ body {
     width: 100px;
     height: 48px;
     font-size: large;
-    border-radius: 9px;
 }
 
 .eliminado {
@@ -55,6 +54,7 @@ body {
     flex-wrap: wrap;
     text-decoration: line-through;
     color: red;
+    font-size: smaller;
 }
 
 h2 {
@@ -67,6 +67,7 @@ h2 {
     border: 1px solid black;
     margin-top: 20px;
     margin-left: 20px;
+    margin-right: 20px;
     text-align: center;
     width: max-content;
     padding: 10px;
@@ -76,6 +77,5 @@ h2 {
 .tarjeta:hover{
     transition: 300ms;
     cursor: pointer;
-    font-size: 30px;
     background-color:rgb(243, 223, 237);   
 }
