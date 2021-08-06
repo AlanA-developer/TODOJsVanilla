@@ -28,6 +28,8 @@ body {
 }
 
 .container {
+    display: flex;
+    flex-wrap: wrap;
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -49,19 +51,31 @@ body {
 }
 
 .eliminado {
+    display: flex;
+    flex-wrap: wrap;
     text-decoration: line-through;
     color: red;
 }
 
 h2 {
     margin: 0;
-    margin-top: 20px;
-    transition: 300ms;
-    font-size: xx-large;
 }
 
-h2:hover {
+.tarjeta{
+    transition: 300ms;
+    display: inline-block;
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-left: 20px;
+    text-align: center;
+    width: max-content;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.tarjeta:hover{
     transition: 300ms;
     cursor: pointer;
-    font-size: 50px;
+    font-size: 30px;
+    background-color:rgb(243, 223, 237);   
 }
