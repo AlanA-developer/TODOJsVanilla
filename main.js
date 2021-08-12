@@ -1,12 +1,10 @@
-const valorTareaInput = document.getElementById("input_tareas");
-const valorEliminarInput = document.getElementById("input_eliminar_tareas");
 const valorSubmit = document.getElementById("submit_boton");
 const valorDelete = document.getElementById("delete_boton");
-const padre = document.getElementById("lista_tareas");
 
 let contador = 0;
 
 valorSubmit.addEventListener("click", () => {
+    const valorTareaInput = document.getElementById("input_tareas");
     let contenidoInput = valorTareaInput.value;
     if (contenidoInput === "") {
         alert("No puedes agregar una tarea vacía");
@@ -36,8 +34,8 @@ valorDelete.addEventListener("click", () => {
 
 function addElemento(tarea) {
     const tareas = document.getElementById("lista_tareas");
-    tareasMateria = document.getElementById("input_materia").value;
-    tareasDescripcion = document.getElementById("input_descripcion").value;
+    let tareasMateria = document.getElementById("input_materia").value;
+    let tareasDescripcion = document.getElementById("input_descripcion").value;
     const templateTarea = `
         <div class = "tarjeta">
             <h2 id = ${contador}>${tarea}</h2>
