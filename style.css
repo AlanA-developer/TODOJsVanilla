@@ -27,7 +27,7 @@ body {
     margin-top: 20px;
 }
 
-.container {
+.lista_tareas {
     display: flex;
     flex-wrap: wrap;
     text-align: center;
@@ -54,7 +54,6 @@ body {
     flex-wrap: wrap;
     text-decoration: line-through;
     color: red;
-    font-size: large;
 }
 
 h2 {
