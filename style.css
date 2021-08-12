@@ -54,28 +54,32 @@ body {
     flex-wrap: wrap;
     text-decoration: line-through;
     color: red;
-    font-size: smaller;
+    font-size: large;
 }
 
 h2 {
     margin: 0;
 }
 
-.tarjeta{
+h3 {
+    margin: 0;
+}
+
+.tarjeta {
     transition: 300ms;
     display: inline-block;
     border: 1px solid black;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
     text-align: center;
     width: max-content;
     padding: 10px;
     border-radius: 10px;
 }
 
-.tarjeta:hover{
+.tarjeta:hover {
     transition: 300ms;
     cursor: pointer;
-    background-color:rgb(243, 223, 237);   
+    background-color: rgb(243, 223, 237);
 }
