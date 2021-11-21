@@ -1,4 +1,4 @@
-import { contador } from "./exportsAgregarTareasFuncion.js";
+import { contador } from "./exportDetectEnterToAddTask.js";
 import { deleteTask } from "./exportFunctionButtonDelete.js";
 
 export function addElemento(tarea) {

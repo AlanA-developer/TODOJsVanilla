@@ -11,6 +11,6 @@ todoSectionComponent.classList.add('seccion_todo');
 todoSectionComponent.id = 'seccion_todo';
 todoSectionComponent.innerHTML = todoSectionTemplate;
 
-export const appendTodoSection = () => {
+export const appendTodoInputsSection = () => {
     app.appendChild(todoSectionComponent);
 };
