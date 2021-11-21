@@ -5,27 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
     <title>TODO With Js Vanilla</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <section class="seccion_header">
-        <h1 class="titulo">Proyecto TODO JavaScript Vanilla</h1>
-        <h3 class="titulo_nombre">Alan Diaz</h3>
-    </section>
-    <section id="seccion_todo" class="seccion_todo">
-        <input type="text" id="input_tareas" class="input" placeholder="Escribe el título de tu tarea a agregar">
-        <input type="text" id="input_materia" class="input" placeholder="Escribe la materia de tu tarea a agregar">
-        <input type="text" id="input_descripcion" class="input" placeholder="Escribe la descripción de tu tarea a agregar">
-        <button id="submit_boton" class="btn" type="submit">Agregar tarea</button>
-        <input type="number" id="input_eliminar_tareas" class="input" placeholder="Escribe el número de tarea a eliminar, ej: 2">
-        <button id="delete_boton" class="btn" type="submit">Eliminar tarea</button>
-    </section>
-    <div id="lista_tareas" class="lista_tareas">
-    </div>
-    <script src="./main.js"></script>
+    <app id="app">
+        <!-- ^^In this div my app works -->
+    </app>
+    <script src="./main.js" type="module"></script>
 </body>
 
 </html>
