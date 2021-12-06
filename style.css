@@ -80,5 +80,33 @@ h3 {
 .tarjeta:hover {
     transition: 300ms;
     cursor: pointer;
-    background-color: rgb(243, 223, 237);
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkbox-label {
+    border: 1px solid #000;
+    display: inline-flex;
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.dark{
+    background-color: rgb(32, 29, 25);
+    color: white;
+}
+
+.dark-font{
+    color: white;
+}
+
+label{
+    text-align: center;
+    transition: 300ms;
+    margin-left: 10px;
 }
