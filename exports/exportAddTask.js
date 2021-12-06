@@ -1,7 +1,9 @@
-import { contador } from "./exportDetectEnterToAddTask.js";
 import { deleteTask } from "./exportFunctionButtonDelete.js";
 
+let contador = 0;
+
 export function addElemento(tarea) {
+  contador++;
   const tareas = document.getElementById("lista_tareas");
   let tareasMateria = document.getElementById("input_materia").value;
   let tareasDescripcion = document.getElementById("input_descripcion").value;
