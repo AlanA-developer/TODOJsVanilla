@@ -51,6 +51,8 @@ body {
 
 .eliminado {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     text-decoration: line-through;
     color: red;
@@ -79,7 +81,7 @@ h3 {
 
 .tarjeta:hover {
     transition: 300ms;
-    cursor: pointer;
+    cursor: text;
 }
 
 .checkbox {
@@ -109,4 +111,8 @@ label{
     text-align: center;
     transition: 300ms;
     margin-left: 10px;
+}
+
+.tarjetaBorderWhite{
+    border: 1px solid white;
 }

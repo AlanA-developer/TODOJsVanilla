@@ -3,8 +3,8 @@ export let deleteTask = () => {
     let buttonDelete = document.getElementsByClassName("buttonDelete");
     for (let i = 0; i < buttonDelete.length; i++) {
       buttonDelete[i].addEventListener("click", () => {
-        let elementoAEliminar = document.getElementById(buttonDelete[i].parentElement.id);
-        elementoAEliminar.classList.add("eliminado");
+        let element = buttonDelete[i].parentNode.childNodes[1];
+        element.classList.add("eliminado");
       });
     }
   }, 10);

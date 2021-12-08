@@ -14,7 +14,9 @@ export function addElemento(tarea) {
               <h3>${tareasMateria}</h3>
               <hr>
               <h3>${tareasDescripcion}</h3>
-              <button class="buttonDelete">Terminé esta tarea</button>
+              <button class="buttonDelete">Terminé ✅</button>
+              <button class="buttonEdit">Editar 📝</button>
+              <button class="buttonReset">No he acabado 🔄</button>
           </div>
   `;
   deleteTask();
