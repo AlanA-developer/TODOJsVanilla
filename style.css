@@ -152,8 +152,8 @@ label {
 
 .modal input {
   display: inline-flex;
-  width: 30%;
-  height: 30px;
+  width: 10em;
+  height: 2em;
   border-radius: 5px;
   border-color: wheat;
   font-size: large;
