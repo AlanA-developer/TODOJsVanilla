@@ -72,7 +72,7 @@ h3 {
   display: inline-block;
   border: 1px solid black;
   margin-top: 1em;
-  margin-left: 3em;
+  margin-left: 2em;
   margin-right: 1em;
   text-align: center;
   width: max-content;
@@ -133,13 +133,12 @@ label {
 }
 
 .modal {
-  height: 25%;
-  width: 45%;
-  background-color: rgb(14, 216, 68);
-  position: absolute;
-  top: 30%;
-  left: 35%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background-color: rgb(142, 245, 170);
   border-radius: 10px;
+  margin-top: 3em;
   text-align: center;
 }
 
