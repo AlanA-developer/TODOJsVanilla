@@ -1,6 +1,7 @@
 import { deleteTask } from "./exportFunctionButtonDelete.js";
+import { resetCard } from "./exportFunctionButtonReset.js";
 
-let contador = 0;
+export let contador = 0;
 
 export function addElemento(tarea) {
   contador++;
@@ -8,17 +9,21 @@ export function addElemento(tarea) {
   let tareasMateria = document.getElementById("input_materia").value;
   let tareasDescripcion = document.getElementById("input_descripcion").value;
   const templateTarea = `
-          <div class = "tarjeta" id = ${contador}>
+  <div class = "tarjeta" id = ${contador}>
               <h2>${tarea}</h2>
               <hr>
               <h3>${tareasMateria}</h3>
               <hr>
               <h3>${tareasDescripcion}</h3>
-              <button class="buttonDelete">Terminé ✅</button>
-              <button class="buttonEdit">Editar 📝</button>
-              <button class="buttonReset">No he acabado 🔄</button>
-          </div>
-  `;
+              <button class="buttonDelete btnCard">Terminé ✅</button>
+              <button class="buttonEdit btnCard" id="buttonEdit${contador}">Editar 📝</button>
+              <button class="buttonReset btnCard">No he acabado 🔄</button>
+              </div>
+              `;
+  
   deleteTask();
+  resetCard();
+  //buttonEdit();
   tareas.insertAdjacentHTML("beforeend", templateTarea);
 }
+

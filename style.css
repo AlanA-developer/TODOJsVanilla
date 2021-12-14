@@ -1,118 +1,181 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-size: x-large;
-    background-color: rgb(240, 230, 218);
+  margin: 0;
+  padding: 0;
+  font-size: x-large;
+  background-color: rgb(240, 230, 218);
 }
 
 .titulo {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
 }
 
 .titulo_nombre {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
 }
 
 .seccion_header {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .seccion_todo {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .lista_tareas {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .input {
-    width: 370px;
-    height: 48px;
-    border-radius: 7px;
-    border-color: wheat;
-    font-size: large;
-    outline: none;
+  width: 370px;
+  height: 48px;
+  border-radius: 7px;
+  border-color: wheat;
+  font-size: large;
+  outline: none;
 }
 
 .btn {
-    width: 100px;
-    height: 48px;
-    font-size: large;
+  width: 100px;
+  height: 48px;
+  font-size: large;
 }
 
 .eliminado {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    text-decoration: line-through;
-    color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-decoration: line-through;
+  color: red;
 }
 
 h2 {
-    margin: 0;
+  margin: 0;
 }
 
 h3 {
-    margin: 0;
+  margin: 0;
 }
 
 .tarjeta {
-    transition: 300ms;
-    display: inline-block;
-    border: 1px solid black;
-    margin-top: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    text-align: center;
-    width: max-content;
-    padding: 10px;
-    border-radius: 10px;
+  transition: 300ms;
+  display: inline-block;
+  border: 1px solid black;
+  margin-top: 1em;
+  margin-left: 3em;
+  margin-right: 1em;
+  text-align: center;
+  width: max-content;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .tarjeta:hover {
-    transition: 300ms;
-    cursor: text;
+  transition: 300ms;
+  cursor: text;
 }
 
 .checkbox {
-    display: none;
+  display: none;
 }
 
 .checkbox-label {
-    border: 1px solid #000;
-    display: inline-flex;
-    width: 250px;
-    height: 40px;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
+  border: 1px solid #000;
+  display: inline-flex;
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 
-.dark{
-    background-color: rgb(32, 29, 25);
-    color: white;
+.dark {
+  background-color: rgb(32, 29, 25);
+  color: white;
 }
 
-.dark-font{
-    color: white;
+.dark-font {
+  color: white;
 }
 
-label{
-    text-align: center;
-    transition: 300ms;
-    margin-left: 10px;
+label {
+  text-align: center;
+  transition: 300ms;
+  margin-left: 10px;
 }
 
-.tarjetaBorderWhite{
-    border: 1px solid white;
+.tarjetaBorderWhite {
+  border: 1px solid white;
+}
+
+.btnCard {
+  border: none;
+  margin-top: 10px;
+  border-radius: 3px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: large;
+  background-color: rgb(206, 247, 217);
+}
+
+.btnCard:hover {
+  transition: 300ms;
+  cursor: pointer;
+}
+
+.modal {
+  height: 25%;
+  width: 45%;
+  background-color: rgb(14, 216, 68);
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  border-radius: 10px;
+  text-align: center;
+}
+
+
+.modal h1 {
+  text-align: center;
+  margin: 0;
+  font-size: x-large;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.modal input {
+  display: inline-flex;
+  width: 30%;
+  height: 30px;
+  border-radius: 5px;
+  border-color: wheat;
+  font-size: large;
+  outline: none;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.modal button {
+  display: inline-block;
+  width: 30%;
+  height: 30px; 
+  border-radius: 5px;
+  border-color: wheat;
+  font-size: large;
+  outline: none;
+  text-align: center;
+  margin-top: 45px;
+}
+
+.modal button:hover {
+  transition: 300ms;
+  cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import { addElemento } from "../exports/exportAddTask.js";
 import { resetInputs } from "../exports/exportResetInputs.js";
+import { buttonEdit } from "./exportFunctionButtonEdit.js";
 
 
 export const detectEnterToAddTask = (event) => {
@@ -9,6 +10,6 @@ export const detectEnterToAddTask = (event) => {
 const createTask = () => {
   const valorTareaInput = document.getElementById("input_tareas");
   let contenidoInput = valorTareaInput.value;
-  contenidoInput === "" ? alert("No puedes agregar una tarea vacia") : addElemento(contenidoInput);
+  contenidoInput === "" ? alert("No puedes agregar una tarea vacia") : addElemento(contenidoInput), buttonEdit();
   resetInputs();
 };
