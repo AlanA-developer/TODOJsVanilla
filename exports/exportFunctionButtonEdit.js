@@ -8,8 +8,11 @@ export let buttonEdit = async () => {
   let arrayButtons = Array.from(buttons);
 
   for (let i = 0; i < arrayButtons.length; i++) {
+
     let tarjetas = document.getElementsByClassName("tarjeta");
+    
     arrayButtons[i].addEventListener("click", function () {
+      
       let modal = document.createElement("div");
       modal.classList.add("modal");
       let modalCount = document.getElementsByClassName("modal");
@@ -36,6 +39,7 @@ export let buttonEdit = async () => {
           `;
         tarjetas[i].appendChild(modal);
       }
+      
     });
   }
 };
