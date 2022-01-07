@@ -15,9 +15,13 @@ export function addElemento(tarea) {
               <h3>${tareasMateria}</h3>
               <hr>
               <h3>${tareasDescripcion}</h3>
-              <button class="buttonDelete btnCard">Terminé ✅</button>
-              <button class="buttonEdit btnCard" id="buttonEdit${contador}">Editar 📝</button>
-              <button class="buttonReset btnCard">No he acabado 🔄</button>
+
+              <div class="buttonsContainer">
+                <button class="buttonDelete btnCard">Terminé ✅</button>
+                <button class="buttonEdit btnCard" id="buttonEdit${contador}">Editar 📝</button>
+                <button class="buttonReset btnCard">No he acabado 🔄</button>
+              </div>
+
               </div>
               `;
   

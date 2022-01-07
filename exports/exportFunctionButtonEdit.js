@@ -29,9 +29,7 @@ export let buttonEdit = async () => {
               <input type="text" id="changeSubject" placeholder="Materia">
               <input type="text" id="changeDescription" placeholder="Descripción">
               
-              <br>
               <button id="close" onclick="${closeModal()}">Cancelar</button>
-              <br>
               <button id="save"  onclick="${saveEdit()}">Guardar</button>
 
             </div>

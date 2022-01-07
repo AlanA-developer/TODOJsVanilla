@@ -5,9 +5,9 @@ export let resetCard = function () {
       buttonReset[i].addEventListener("click", () => {
 
         let elements = [
-          buttonReset[i].parentNode.childNodes[1],
-          buttonReset[i].parentNode.childNodes[5],
-          buttonReset[i].parentNode.childNodes[9],
+          buttonReset[i].parentNode.parentNode.childNodes[1],
+          buttonReset[i].parentNode.parentNode.childNodes[5],
+          buttonReset[i].parentNode.parentNode.childNodes[9],
         ];
 
         elements.forEach((element) => {

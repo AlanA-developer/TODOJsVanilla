@@ -5,9 +5,9 @@ export let deleteTask = () => {
       buttonDelete[i].addEventListener("click", () => {
         
         let elements = [
-          buttonDelete[i].parentNode.childNodes[1],
-          buttonDelete[i].parentNode.childNodes[5],
-          buttonDelete[i].parentNode.childNodes[9],
+          buttonDelete[i].parentNode.parentNode.childNodes[1],
+          buttonDelete[i].parentNode.parentNode.childNodes[5],
+          buttonDelete[i].parentNode.parentNode.childNodes[9],
         ];
 
         elements.forEach((element) => {
