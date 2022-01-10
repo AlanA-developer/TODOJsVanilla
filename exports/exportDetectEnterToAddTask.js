@@ -1,5 +1,5 @@
-import { addElemento } from "../exports/exportAddTask.js";
-import { resetInputs } from "../exports/exportResetInputs.js";
+import { addElemento } from "./exportAddTask.js";
+import { resetInputs } from "./exportResetInputs.js";
 import { buttonEdit } from "./exportFunctionButtonEdit.js";
 
 

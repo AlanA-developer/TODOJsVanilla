@@ -76,7 +76,7 @@ h3 {
   flex-direction: column;
   flex-basis: 100%;
   flex-flow: column;
-  border: 1px solid black;
+  border: 1px solid #787a31;
   margin-top: 1em;
   text-align: center;
   width: max-content;
@@ -104,6 +104,7 @@ h3 {
 }
 
 .dark {
+  border-color: aliceblue;
   background-color: rgb(32, 29, 25);
   color: white;
 }
@@ -116,10 +117,6 @@ label {
   text-align: center;
   transition: 300ms;
   margin-left: 10px;
-}
-
-.tarjetaBorderWhite {
-  border: 1px solid white;
 }
 
 .btnCard {

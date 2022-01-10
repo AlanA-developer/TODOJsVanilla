@@ -21,8 +21,7 @@ export function addElemento(tarea) {
                 <button class="buttonEdit btnCard" id="buttonEdit${contador}">Editar 📝</button>
                 <button class="buttonReset btnCard">No he acabado 🔄</button>
               </div>
-
-              </div>
+  </div>
               `;
   
   deleteTask();
