@@ -1,6 +1,5 @@
 import { deleteTask } from "./exportFunctionButtonDelete.js";
 import { resetCard } from "./exportFunctionButtonReset.js";
-import { functionImportanceTask } from "./exportFunctionImportanceTask.js";
 
 export let contador = 0;
 
