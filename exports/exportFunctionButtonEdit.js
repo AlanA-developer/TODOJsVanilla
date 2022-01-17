@@ -18,7 +18,7 @@ export let buttonEdit = async () => {
       let modalCount = document.getElementsByClassName("modal");
 
       //No se puede crear un modal si ya hay uno
-      if (modalCount.length == 0) {
+      if (modalCount.length === 0) {
         modal.innerHTML = `
 
             <div>

@@ -135,10 +135,10 @@ label {
 
 .modal {
   position: relative;
-  background-color: rgb(142, 245, 170);
   border-radius: 10px;
   margin-top: 1em;
   text-align: center;
+  border: 1px solid #787a31;
 }
 
 
