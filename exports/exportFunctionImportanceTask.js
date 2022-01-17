@@ -1,7 +1,7 @@
 export const functionImportanceTask = () => {
     setTimeout(() => {
         let menusValue = document.querySelectorAll('#menuSelect');
-        console.log(menusValue);
+
         for (let i = 0; i < menusValue.length; i++) {
             menusValue[i].addEventListener('change', event => {
                 if(event.target.value === 'No importante') {
@@ -15,8 +15,8 @@ export const functionImportanceTask = () => {
                 if(event.target.value === 'Muy importante') {
                     event.target.parentElement.parentElement.style.backgroundColor = 'rgba(246,31,31,0.5)';
                 }
-                console.log('El menu acaba de cambiar a: ' + event.target.value);
+
             });
         }
-    }, 50);
+    }, 5);
 }
