@@ -23,7 +23,7 @@ export function addElemento(tarea) {
                 <button class="buttonEdit btnCard" id="buttonEdit${contador}">Editar 📝</button>
                 <button class="buttonReset btnCard">No he acabado 🔄</button>
                 
-                <select name="transporte" class="btnCard" class="menuSelect">
+                <select name="transporte" class="btnCard" id="menuSelect">
                   <option selected>Mi tarea es:</option>
                   <option>No importante</option>
                   <option>Importante</option>
@@ -36,7 +36,6 @@ export function addElemento(tarea) {
   
   deleteTask();
   resetCard();
-  functionImportanceTask();
   tareas.insertAdjacentHTML("beforeend", templateTarea);
 }
 
