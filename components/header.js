@@ -5,7 +5,7 @@ import { app } from '../exports/exportApp.js';
 import { toggleDarkMode } from '../exports/darkMode.js';
 
 //Creamos el template del header
-const headerTemplate = `
+export const headerTemplate = `
         <h1 class="titulo">Proyecto TODO JavaScript Vanilla</h1>
         <h3 class="titulo_nombre">
             Alan Diaz
