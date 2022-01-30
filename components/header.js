@@ -15,7 +15,10 @@ export const headerTemplate = `
 `;
 
 //Creamos nuestro elemento header
-const headerComponent = document.createElement('header').classList.add('seccion_header');
+const headerComponent = document.createElement('header');
+
+//Le agregamos la clase para estilos y propiedades al header
+headerComponent.classList.add('seccion_header');
 
 //Le agregamos el html al header
 headerComponent.innerHTML = headerTemplate;
