@@ -30,9 +30,9 @@ export function addElemento(tarea) {
 
               <div class="buttonsContainer">
               
-                <button class="buttonDelete btnCard">Terminé ✅</button>
+                <button class="buttonDelete btnCard" id="buttonDelete">Terminé ✅</button>
                 <button class="buttonEdit btnCard" id="buttonEdit${contador}">Editar 📝</button>
-                <button class="buttonReset btnCard">No he acabado 🔄</button>
+                <button class="buttonReset btnCard" id="buttonReset">No he acabado 🔄</button>
                 
                 <select name="transporte" class="btnCard" id="menuSelect">
                   <option selected>Mi tarea es:</option>

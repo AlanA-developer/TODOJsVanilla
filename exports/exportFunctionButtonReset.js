@@ -3,27 +3,20 @@ export let resetCard = function () {
   //Agregamos un setTimeout para que la clase eliminado se agregue después de que se haya ejecutado las funciones anteriores
   setTimeout(() => {
     //Localizamos todos los botones de reset y guardamos en una variable
-    const buttonReset = document.getElementsByClassName("buttonReset");
+    let buttonReset = document.querySelectorAll("#buttonReset");
 
-    //Recorremos todos los botones de reset
-    for (let i = 0; i < buttonReset.length; i++) {
+    buttonReset.forEach((element) => {
       //Detectamos el click sobre cada botón de reset
-      buttonReset[i].addEventListener("click", () => {
+      element.addEventListener("click", (e) => {
+        e.target.parentNode.parentNode.childNodes[1].style.transition = "300ms";
+        e.target.parentNode.parentNode.childNodes[1].classList.remove("eliminado");
 
-        //Creamos un array con todos los elementos de la tarjeta a los que se les quitará la clase eliminado
-        let elements = [
-          buttonReset[i].parentNode.parentNode.childNodes[1],
-          buttonReset[i].parentNode.parentNode.childNodes[5],
-          buttonReset[i].parentNode.parentNode.childNodes[9],
-        ];
+        e.target.parentNode.parentNode.childNodes[5].style.transition = "300ms";
+        e.target.parentNode.parentNode.childNodes[5].classList.remove("eliminado");
 
-        //Eliminamos la clase eliminado a cada elemento seleccionado en el array elements
-        elements.forEach((element) => {
-          element.style.transition = "300ms";
-          element.classList.remove("eliminado");
-        });
-        
+        e.target.parentNode.parentNode.childNodes[9].style.transition = "300ms";
+        e.target.parentNode.parentNode.childNodes[9].classList.remove("eliminado");
       });
-    }
+    });
   }, 5);
 };
