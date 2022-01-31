@@ -4,6 +4,21 @@ import { app } from '../exports/exportApp.js';
 //Importamos la función del toggle para activar el darkmode
 import { toggleDarkMode } from '../exports/darkMode.js';
 
+//Importamos la funcion de eliminar tarea
+import { deleteTask } from '../exports/exportFunctionButtonDelete.js';
+
+//Importamos la funcion para resetear la clase eliminado
+import { resetCard } from '../exports/exportFunctionButtonReset.js';
+
+//Importamos la funcion para abrir el modal de edición
+import { buttonEdit } from '../exports/exportFunctionButtonEdit.js';
+
+//Importamos la funcion de importancia de las tareas
+import { functionImportanceTask } from '../exports/exportFunctionImportanceTask.js';
+
+//Importamos la funcion de agregar tarea
+import { detectEnterToAddTask } from '../exports/exportDetectEnterToAddTask.js';
+
 //Creamos el template del header
 export const headerTemplate = `
         <h1 class="titulo">Proyecto TODO JavaScript Vanilla</h1>
@@ -11,8 +26,30 @@ export const headerTemplate = `
             Alan Diaz
             <input type="checkbox" class="checkbox" id="checkbox">
             <label for="checkbox" class="checkbox-label">Dark mode: Off  ☀</label>
+            <button class="btnCard" id="buttonSave">Guardar las tareas</button>
+            <button class="btnCard" id="buttonLoad">Cargar las tareas</button>
         </h3>
 `;
+
+function detectButtonHeaderSave() {
+    const button = document.getElementById('buttonSave');
+    button.addEventListener('click', () => {
+        //Guardamos todo el contenido del body en localStorage
+        localStorage.setItem('tareas', document.body.childNodes[1].childNodes[5].innerHTML);
+    });
+}
+
+function detectButtonHeaderLoad() {
+    const button = document.getElementById('buttonLoad');
+    button.addEventListener('click', () => {
+        //Cargamos todo el contenido del body en localStorage
+        document.body.childNodes[1].childNodes[5].innerHTML = localStorage.getItem('tareas');
+        deleteTask();
+        resetCard();
+        buttonEdit();
+        functionImportanceTask();
+    });
+}
 
 //Creamos nuestro elemento header
 const headerComponent = document.createElement('header');
@@ -30,4 +67,6 @@ export const appendHeader = () => {
 
     //Agregamos las funciones al toggle dark mode
     toggleDarkMode();
+    detectButtonHeaderSave();
+    detectButtonHeaderLoad();
 };
