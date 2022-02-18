@@ -10,7 +10,6 @@ import { appendTaskList } from "./components/taskList.js";
 //Importamos la función para agregar tareas
 import { agregarTareas } from "./exports/exportsAgregarTareasFuncion.js";
 
-
 //Usamos las importaciones
 appendHeader();
 appendTodoInputsSection();
