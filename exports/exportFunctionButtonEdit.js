@@ -1,6 +1,3 @@
-//Importamos la funcionalidad para cerrar el modal
-import { closeModal } from "./exportCloseModal.js";
-
 //Importamos la funcionalidad para guardar el edit la tarea
 import { saveEdit } from "./exportSaveEdit.js";
 
@@ -13,14 +10,12 @@ export let buttonEdit = () => {
   let arrayButtons = Array.from(buttons);
 
   //Recorremos todos los botones de editar
-  for (let i = 0; i < arrayButtons.length; i++) {
-
+  arrayButtons.forEach((button, i) => {
     //Detectamos cada tarjeta
     let tarjetas = document.getElementsByClassName("tarjeta");
-    
+
     //Detectamos el click sobre cada botón de editar
     arrayButtons[i].addEventListener("click", function () {
-      
       //Creamos el div donde se va a mostrar el modal
       let modal = document.createElement("div");
 
@@ -30,8 +25,7 @@ export let buttonEdit = () => {
       //Localizamos cuantos modales hay en el documento
       let modalCount = document.getElementsByClassName("modal");
 
-      //No se puede crear un modal si ya hay uno
-      if (modalCount.length === 0) {
+      function addModalToCard() {
         //Agregamos un template al modal
         modal.innerHTML = `
             <div>
@@ -42,16 +36,17 @@ export let buttonEdit = () => {
               <input type="text" id="changeSubject" placeholder="Materia">
               <input type="text" id="changeDescription" placeholder="Descripción">
               
-              <button id="close" onclick="${closeModal()}">Cancelar</button>
-              <button id="save"  onclick="${saveEdit()}">Guardar</button>
+              <button id="save"  onclick="${saveEdit()}">Guardar / Cancelar</button>
 
             </div>
           `;
-        
+
         //A la tarjeta seleccionada le agregamos el modal
         tarjetas[i].appendChild(modal);
       }
-      
+
+      //No se puede crear un modal si ya hay uno
+      modalCount.length === 0 ? addModalToCard() : null;
     });
-  }
+  });
 };

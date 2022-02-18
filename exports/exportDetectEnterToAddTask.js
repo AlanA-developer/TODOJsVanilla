@@ -19,12 +19,11 @@ export const detectEnterToAddTask = (event) => {
 
 //Función para crear la tarea
 const createTask = () => {
-  //Localizamos el input del valor de la tarea y la guardamos en una variable
-  const valorTareaInput = document.getElementById("input_tareas");
-  
   //Función para determinar la importancia de la tarea
   functionImportanceTask();
 
   //Si el valor del input no está vacío ejecuta la función `addElemento()` de lo contrario no hace nada
-  valorTareaInput.value === "" ? alert("No puedes agregar una tarea vacia") : addElemento(valorTareaInput.value), buttonEdit(), resetInputs();
+  document.getElementById("input_tareas")
+          .value === "" ? alert("No puedes agregar una tarea vacia") 
+          : addElemento(document.getElementById("input_tareas").value), buttonEdit(), resetInputs();
 };
