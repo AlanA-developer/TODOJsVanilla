@@ -7,6 +7,6 @@ export const resetInputs = () => {
   ];
 
   resetingInputs.forEach((input) => {
-    input.classList.value = "";
+    input.value = "";
   });
 };
