@@ -16,9 +16,6 @@ import { buttonEdit } from '../exports/exportFunctionButtonEdit.js';
 //Importamos la funcion de importancia de las tareas
 import { functionImportanceTask } from '../exports/exportFunctionImportanceTask.js';
 
-//Importamos la funcion de agregar tarea
-import { detectEnterToAddTask } from '../exports/exportDetectEnterToAddTask.js';
-
 //Creamos el template del header
 export const headerTemplate = `
         <h1 class="titulo">Proyecto TODO JavaScript Vanilla</h1>
