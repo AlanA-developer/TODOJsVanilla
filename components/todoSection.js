@@ -1,5 +1,5 @@
 //Importamos la etiqueta app que es donde se va a montar nuestra app
-import { app } from '../exports/exportApp.js';
+import { app } from '../shared/exportApp.js';
 
 //Creamos el template de los inputs de la sección de inputs
 const todoSectionTemplate = `

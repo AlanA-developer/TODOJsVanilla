@@ -8,7 +8,7 @@ import { appendTodoInputsSection } from "./components/todoSection.js";
 import { appendTaskList } from "./components/taskList.js";
 
 //Importamos la función para agregar tareas
-import { agregarTareas } from "./exports/exportsAgregarTareasFuncion.js";
+import { agregarTareas } from "./shared/exportsAgregarTareasFuncion.js";
 
 //Usamos las importaciones
 appendHeader();

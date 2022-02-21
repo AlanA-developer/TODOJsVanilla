@@ -1,5 +1,5 @@
 //Importamos la etiqueta app que es donde se va a montar nuestra app
-import { app } from '../exports/exportApp.js';
+import { app } from '../shared/exportApp.js';
 
 //Creamos el elemento div donde se van a agregar las tareas
 const taskListComponent = document.createElement('div');

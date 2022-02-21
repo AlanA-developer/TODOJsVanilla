@@ -1,20 +1,20 @@
 //Importamos el id de la etiqueta donde se va a montar nuestra app
-import { app } from '../exports/exportApp.js';
+import { app } from '../shared/exportApp.js';
 
 //Importamos la función del toggle para activar el darkmode
-import { toggleDarkMode } from '../exports/darkMode.js';
+import { toggleDarkMode } from '../shared/darkMode.js';
 
 //Importamos la funcion de eliminar tarea
-import { deleteTask } from '../exports/exportFunctionButtonDelete.js';
+import { deleteTask } from '../shared/exportFunctionButtonDelete.js';
 
 //Importamos la funcion para resetear la clase eliminado
-import { resetCard } from '../exports/exportFunctionButtonReset.js';
+import { resetCard } from '../shared/exportFunctionButtonReset.js';
 
 //Importamos la funcion para abrir el modal de edición
-import { buttonEdit } from '../exports/exportFunctionButtonEdit.js';
+import { buttonEdit } from '../shared/exportFunctionButtonEdit.js';
 
 //Importamos la funcion de importancia de las tareas
-import { functionImportanceTask } from '../exports/exportFunctionImportanceTask.js';
+import { functionImportanceTask } from '../shared/exportFunctionImportanceTask.js';
 
 //Creamos el template del header
 export const headerTemplate = `
