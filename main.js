@@ -15,3 +15,9 @@ appendHeader();
 appendTodoInputsSection();
 appendTaskList();
 agregarTareas();
+
+(() => {
+    alert(
+        "Para agregar una tarea unicamente debes presionar la tecla enter"
+    );
+}) ();
