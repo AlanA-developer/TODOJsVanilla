@@ -1,25 +1,25 @@
-//Importamos la función para agregar la clase eliminado a la tarea
-import { deleteTask } from "./exportFunctionButtonDelete.js";
+// Importamos la función para agregar la clase eliminado a la tarea
+import { deleteTask } from './exportFunctionButtonDelete.js'
 
-//Importamos la función para quitar la clase eliminado a la tarea
-import { resetCard } from "./exportFunctionButtonReset.js";
+// Importamos la función para quitar la clase eliminado a la tarea
+import { resetCard } from './exportFunctionButtonReset.js'
 
-//Creamos y exportamos la variable contador para dale un id a cada tarea
-export let contador = 0;
+// Creamos y exportamos la variable contador para dale un id a cada tarea
+export let contador = 0
 
-//Creamos y exportamos lafunción para crear la tarjeta de la tarea con sus respectivos elementos
-export function addElemento(tarea) {
-  //Aumentamos el contador
-  contador++;
+// Creamos y exportamos lafunción para crear la tarjeta de la tarea con sus respectivos elementos
+export function addElemento (tarea) {
+  // Aumentamos el contador
+  contador++
 
-  //Creamos el template de la tarjeta de la tarea
+  // Creamos el template de la tarjeta de la tarea
   const templateTarea = `
   <div class = "tarjeta" id = ${contador}>
               <h2>${tarea}</h2>
               <hr>
-              <h3>${document.getElementById("input_materia").value}</h3>
+              <h3>${document.getElementById('input_materia').value}</h3>
               <hr>
-              <h3>${document.getElementById("input_descripcion").value}</h3>
+              <h3>${document.getElementById('input_descripcion').value}</h3>
 
               <div class="buttonsContainer">
               
@@ -36,14 +36,13 @@ export function addElemento(tarea) {
                 
               </div>
   </div>
-              `;
+              `
 
-  //Invocamos las funciones para agregar y eliminar las clases de la tarjeta
-  deleteTask();
-  resetCard();
+  // Invocamos las funciones para agregar y eliminar las clases de la tarjeta
+  deleteTask()
+  resetCard()
 
-  //Agregamos la tarjeta a la lista de tareas
-  document.getElementById("lista_tareas")
-          .insertAdjacentHTML("beforeend", templateTarea);
+  // Agregamos la tarjeta a la lista de tareas
+  document.getElementById('lista_tareas')
+    .insertAdjacentHTML('beforeend', templateTarea)
 }
-
