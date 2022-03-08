@@ -185,3 +185,12 @@ label {
   justify-content: center;
   align-items: center;
 }
+
+.noscript {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}

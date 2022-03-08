@@ -1,3 +1,4 @@
+/* eslint-disable func-call-spacing */
 // Importamos el header
 import { appendHeader } from './components/header.js'
 
@@ -14,10 +15,8 @@ import { agregarTareas } from './shared/exportsAgregarTareasFuncion.js'
 appendHeader()
 appendTodoInputsSection()
 appendTaskList()
-agregarTareas();
+agregarTareas()
 
-(() => {
-  alert(
-    'Para agregar una tarea unicamente debes presionar la tecla enter'
-  )
-})()
+export const contentLoaded = document.addEventListener('DOMContentLoaded', () => {
+  alert('Para agregar una tarea, escriba en el campo de texto y presione la tecla "Enter"')
+})
