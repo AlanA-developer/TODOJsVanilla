@@ -39,9 +39,16 @@ body {
   width: 370px;
   height: 48px;
   border-radius: 7px;
-  border-color: wheat;
+  border-color: rgb(204, 194, 175);
   font-size: large;
   outline: none;
+  transition: 300ms;
+}
+
+.input:focus {
+  transition: 300ms;
+  border-color: rgb(143, 88, 21);
+  box-shadow: 0 0 10px rgb(143, 88, 21);
 }
 
 .btn {
@@ -125,12 +132,15 @@ label {
   border-radius: 3px;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: large;
-  background-color: rgb(206, 247, 217);
+  background-color: rgb(131, 204, 238);
+  padding: 15px;
+  transition: 300ms;
 }
 
 .btnCard:hover {
   transition: 300ms;
   cursor: pointer;
+  box-shadow: 0px 0px 10px rgb(131, 204, 238);
 }
 
 .modal {
@@ -159,6 +169,13 @@ label {
   outline: none;
   margin-top: 20px;
   text-align: center;
+  transition: 300ms;
+}
+
+.modal input:focus {
+  transition: 300ms;
+  border-color: rgb(143, 88, 21);
+  box-shadow: 0 0 10px rgb(143, 88, 21);
 }
 
 .modal button {
@@ -166,17 +183,19 @@ label {
   width: 30%;
   height: 2em; 
   border-radius: 5px;
-  border-color: wheat;
+  border-color: rgb(243, 232, 212);
   font-size: large;
   outline: none;
   text-align: center;
   margin-top: 1em;
   margin-left: 35%;
+  transition: 300ms;
 }
 
 .modal button:hover {
   transition: 300ms;
   cursor: pointer;
+  box-shadow: 0 0 10px rgb(245, 209, 141);
 }
 
 .buttonsContainer {
@@ -184,6 +203,10 @@ label {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+.buttonsContainer button {
+  margin-right: 10px;
 }
 
 .noscript {

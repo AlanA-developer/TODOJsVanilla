@@ -10,16 +10,16 @@ export const functionImportanceTask = () => {
       // Detectamos el click sobre cada selector seleccionado
       menusValue[i].addEventListener('change', event => {
         // Localizamos el elemento seleccionado y le aplicamos el estilo correspondiente
-        if (event.target.value === 'No importante') {
-          event.target.parentElement.parentElement.style.backgroundColor = 'rgba(25,205,245,0.3)'
-        }
-
-        if (event.target.value === 'Importante') {
-          event.target.parentElement.parentElement.style.backgroundColor = 'rgba(248,60,114,0.3)'
-        }
-
-        if (event.target.value === 'Muy importante') {
-          event.target.parentElement.parentElement.style.backgroundColor = 'rgba(246,31,31,0.5)'
+        switch (event.target.value) {
+          case 'No importante':
+            event.target.parentElement.parentElement.style.backgroundColor = 'rgba(25,205,245,0.3)'
+            break
+          case 'Importante':
+            event.target.parentElement.parentElement.style.backgroundColor = 'rgba(255,255,0,0.3)'
+            break
+          case 'Muy importante':
+            event.target.parentElement.parentElement.style.backgroundColor = 'rgba(255,0,0,0.5)'
+            break
         }
       })
     }

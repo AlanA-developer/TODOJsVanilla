@@ -8,14 +8,10 @@ export const resetCard = function () {
     buttonReset.forEach((element) => {
       // Detectamos el click sobre cada botón de reset
       element.addEventListener('click', (e) => {
-        e.target.parentNode.parentNode.childNodes[1].style.transition = '300ms'
-        e.target.parentNode.parentNode.childNodes[1].classList.remove('eliminado')
-
-        e.target.parentNode.parentNode.childNodes[5].style.transition = '300ms'
-        e.target.parentNode.parentNode.childNodes[5].classList.remove('eliminado')
-
-        e.target.parentNode.parentNode.childNodes[9].style.transition = '300ms'
-        e.target.parentNode.parentNode.childNodes[9].classList.remove('eliminado')
+        for (let i = 1; i < 10; i += 4) {
+          e.target.parentNode.parentNode.childNodes[i].style.transition = '300ms'
+          e.target.parentNode.parentNode.childNodes[i].classList.remove('eliminado')
+        }
       })
     })
   }, 5)
