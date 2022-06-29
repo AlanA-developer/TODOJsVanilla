@@ -16,15 +16,12 @@ export const saveEdit = () => {
       let description = document.getElementById('changeDescription').value
 
       // Si no se modifica nada dentro del modal entonces sus valores se mantienen iguales en los elementos correspondientes
-      if (title === '') {
-        title = actualElement.parentElement.childNodes[1].textContent
-      }
-      if (subject === '') {
-        subject = actualElement.parentElement.childNodes[5].textContent
-      }
-      if (description === '') {
-        description = actualElement.parentElement.childNodes[9].textContent
-      }
+     
+      title == '' ? title = actualElement.parentElement.childNodes[1].textContent : null
+   
+      subject == '' ? subject = actualElement.parentElement.childNodes[5].textContent : null
+     
+      description == '' ? description = actualElement.parentElement.childNodes[9].textContent : null
 
       // Sustituimos los valores de los elementos correspondientes
       actualElement.parentElement.childNodes[1].textContent = title
