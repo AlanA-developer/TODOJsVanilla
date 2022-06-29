@@ -1,0 +1,24 @@
+{
+  "name": "todojsvanilla",
+  "version": "1.0.0",
+  "description": "Todo list vanilla js",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanA-developer/TODOJsVanilla.git"
+  },
+  "author": "AlanA-Developer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlanA-developer/TODOJsVanilla/issues"
+  },
+  "homepage": "https://github.com/AlanA-developer/TODOJsVanilla#readme",
+  "dependencies": {
+    "vite": "^2.9.13"
+  }
+}
