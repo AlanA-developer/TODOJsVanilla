@@ -14,11 +14,11 @@ import { functionImportanceTask } from './exportFunctionImportanceTask.js'
 export const detectEnterToAddTask = (event) => {
   // Si el código de la tecla es 13 (enter) ejecuta la función `createTask()` de lo contrario no hace nada
   // eslint-disable-next-line no-unused-expressions
-  event.keyCode === 13 ? createTask() : null
+  event.keyCode === 13 ? createTask() : null;
 }
 
 // Función para crear la tarea
-const createTask = () => {
+export const createTask = () => {
   // Función para determinar la importancia de la tarea
   functionImportanceTask()
 

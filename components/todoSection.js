@@ -1,11 +1,13 @@
 // Importamos la etiqueta app que es donde se va a montar nuestra app
 import { app } from '../shared/exportApp.js'
+import { createTask } from '../shared/exportDetectEnterToAddTask.js'
 
 // Creamos el template de los inputs de la sección de inputs
 const todoSectionTemplate = `
         <input type="text" id="input_tareas" class="input" placeholder="Escribe el título de tu tarea a agregar">
         <input type="text" id="input_materia" class="input" placeholder="Escribe la materia de tu tarea a agregar">
         <input type="text" id="input_descripcion" class="input" placeholder="Escribe la descripción de tu tarea a agregar">
+        <button class="btnCard buttonAddTask" id="buttonAddTask">Agregar tarea</button>
 `
 
 // Creamos una seccion para los inputs

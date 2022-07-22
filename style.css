@@ -198,6 +198,10 @@ label {
   box-shadow: 0 0 10px rgb(245, 209, 141);
 }
 
+.modal #save {
+  height: fit-content;
+}
+
 .buttonsContainer {
   display: flex;
   flex-wrap: wrap;
@@ -216,4 +220,9 @@ label {
   align-items: center;
   margin-top: 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.buttonAddTask {
+  margin-top: -1px;
+  margin-left: 10px;
 }
