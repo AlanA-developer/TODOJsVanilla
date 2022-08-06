@@ -16,7 +16,3 @@ appendHeader()
 appendTodoInputsSection()
 appendTaskList()
 agregarTareas()
-
-export const contentLoaded = document.addEventListener('DOMContentLoaded', () => {
-  alert('Para agregar una tarea, escriba en el campo de texto y presione la tecla "Enter"')
-})
