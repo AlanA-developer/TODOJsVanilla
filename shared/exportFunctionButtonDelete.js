@@ -5,17 +5,24 @@ export const deleteTask = () => {
     // Localizamos todos los botones de eliminar y guardamos en una variable
     const buttonDelete = document.querySelectorAll('#buttonDelete')
 
-    buttonDelete.forEach((element) => {
+    buttonDelete.forEach((element, index) => {
       // Detectamos el click sobre cada botón de eliminar
       element.addEventListener('click', (e) => {
-        e.target.parentNode.parentNode.childNodes[1].style.transition = '300ms'
-        e.target.parentNode.parentNode.childNodes[1].classList.add('eliminado')
+        for (const childNode of e.target.parentNode.parentNode.childNodes) {
 
-        e.target.parentNode.parentNode.childNodes[5].style.transition = '300ms'
-        e.target.parentNode.parentNode.childNodes[5].classList.add('eliminado')
+          if (
+              childNode == e.target.parentNode.parentNode.childNodes[1] 
+              ||
+              childNode == e.target.parentNode.parentNode.childNodes[5] 
+              ||
+              childNode == e.target.parentNode.parentNode.childNodes[9] 
+            ) 
+            {
+              childNode.style.transition = '300ms';
+              childNode.classList.add('eliminado');
+            }
 
-        e.target.parentNode.parentNode.childNodes[9].style.transition = '300ms'
-        e.target.parentNode.parentNode.childNodes[9].classList.add('eliminado')
+        }
       })
     })
   }, 5)
