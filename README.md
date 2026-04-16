@@ -1,58 +1,72 @@
-# Para desarrolladores:
+# 🌌 ZENIT: Elite Task Manager
 
-## Estructura del proyecto:
+**ZENIT** es un gestor de misiones de alto rendimiento con una estética "Futuristic Dark Mode". Ha sido diseñado para ofrecer una experiencia visual envidiable combinando la simplicidad de Vanilla JavaScript con la robustez de un backend en Java.
 
-1 - .idea (archivo de configuración de IntelliJ IDEA)
+![Preview](https://via.placeholder.com/800x400.png?text=Zenit+Elite+Task+Manager+Preview)
 
-2 - components (
-    aquí vas a encontrar las tres partes fundamentales de la aplicación, tales como: 'header.js', 'taskList.js', 'todoSection.js'
-)
+## 🚀 Características Principales
 
-2.1 - components description = 
-- header.js (
-    aquí vas a encontrar el código que se encarga de la parte superior de la aplicación, en la que se encuentra el título de la aplicación
-)
+- **Dashboard SaaS Style**: Interfaz moderna basada en paneles y micro-animaciones.
+- **Fullstack Real**: Persistence permanente mediante una base de datos SQLite gestionada por un servidor Java.
+- **Glassmorphism 2.0**: Efectos de cristal esmerilado y gradientes de malla dinámicos.
+- **Estadísticas en Vivo**: Seguimiento de tu productividad directamente en el Sidebar.
+- **Prioridad Crítica**: Etiquetas de misión para gestionar la importancia de cada tarea.
 
-- taskList.js (
-    Aquí se crea y carga el conetendor donde van a estar nuestras tareas
-)
+## 🛠️ Stack Tecnológico
 
-- todoSection (
-    Aquí se crean todos los inputs para agregar una tarea
-)
+- **Frontend**: Vanilla JavaScript (ES6+), CSS3 Moderno (Custom Properties, Grid, Flexbox).
+- **Backend**: Java 21 (Servidor HTTP Nativo).
+- **Base de Datos**: SQLite (Relacional).
+- **Librerías**: GSON (JSON handling), SQLite-JDBC (Driver).
 
-- node_modules (
-    Aquí se encuentran los módulos que se necesitan para que la aplicación funcione
-)
+---
 
-- shared (
-    Aquí se encuentran todos los pequeños archivos que en conjunto hacen que la aplicación funcione
-)
+## 🏁 Instrucciones de Instalación
 
-- test (
-    Aquí se encuentran los test unitarios que comprueban la ruta crítica de nuestra aplicación
-)
+### 1. Requisitos Previos
 
-## Tecnologías utilizadas:
+- Tener instalado **Java 21** o superior.
+- Un navegador moderno (Chrome, Edge, Firefox).
 
-- HTML
-- CSS
-- JavaScript
-- Jest (para los test unitarios)
-- Vite (para contruir el build, lanzar el servidor local y poder tener una preview)
-- eslint (para la linting de mi código)
+### 2. Levantar el Backend
 
-## Para instalar las dependencias:
-- npm install
+Para que la aplicación funcione, el servidor Java debe estar activo para gestionar la base de datos:
 
-## Para correr un servidor local:
-- npm run serve
+1. Abre una terminal en la carpeta raíz del proyecto.
+2. Ejecuta el siguiente comando:
+   ```bash
+   java -cp "backend/lib/*;." backend.TodoServer
+   ```
+3. Verás el mensaje: `Servidor iniciado en http://localhost:8080`. **No cierres esta terminal.**
 
-## Para contruir el build:
-- npm run build
+### 3. Ejecutar el Frontend
 
-## Para lanzar una preview:
-- npm run preview
+Como el frontend es Vanilla JS, solo necesitas servir los archivos estáticos:
 
-## Para correr el test unitario:
-- npm run test
+- Puedes abrir directamente el archivo `index.html` en tu navegador.
+- O usar extensiones como **Live Server** (VS Code) para una mejor experiencia.
+
+---
+
+## 📂 Estructura del Proyecto
+
+```text
+├── backend/            # Servidor Java y Base de Datos solo
+│   ├── lib/            # Dependencias externas (GSON, SQLite)
+│   ├── todo.db         # Base de Datos (Generada automáticamente)
+│   └── TodoServer.java # Código fuente del servidor
+├── components/         # Componentes modulares de UI
+├── src/                # Archivos principales de la aplicación
+│   ├── main.js         # Orquestador del Dashboard
+│   └── style.css       # Sistema de diseño y Mesh Gradients
+├── shared/             # Lógica de estado y utilidades
+└── index.html          # Punto de entrada de la aplicación
+```
+
+## 🔒 Seguridad
+
+Los archivos de base de datos (`.db`) están excluidos del control de versiones mediante `.gitignore` para proteger la privacidad de tus misiones locales.
+
+---
+
+**Desarrollado con ❤️ por el Alana-Dveloper.**

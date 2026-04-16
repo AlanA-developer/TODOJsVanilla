@@ -1,0 +1,67 @@
+import { store } from '../shared/Store.js'
+
+export const appendModal = (container) => {
+    const modalOverlay = document.createElement('div')
+    modalOverlay.classList.add('modal-overlay')
+    modalOverlay.id = 'modal-task'
+    
+    modalOverlay.innerHTML = `
+        <div class="modal-content">
+            <h2 class="modal-title">Nueva Misión</h2>
+            <div class="form-group">
+                <label class="form-label">Título de la misión</label>
+                <input type="text" id="modal_title" class="form-input" placeholder="Ej: Rediseñar interfaz">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Categoría</label>
+                <input type="text" id="modal_subject" class="form-input" placeholder="Ej: Diseño / Backend">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Prioridad</label>
+                <select id="modal_priority" class="form-input">
+                    <option value="low">Insignificante</option>
+                    <option value="medium">Importante</option>
+                    <option value="high">Crítica</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Descripción</label>
+                <textarea id="modal_desc" class="form-input" rows="3" placeholder="Detalles estratégicos..."></textarea>
+            </div>
+            <button class="btn-submit" id="btn-save-task">DESPLEGAR MISIÓN</button>
+            <button style="margin-top: 1rem; width: 100%; border: none; background: none; color: var(--text-muted); cursor: pointer" id="btn-cancel-task">CANCELAR</button>
+        </div>
+    `
+    container.appendChild(modalOverlay)
+
+    // Close on overlay click
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal()
+    })
+
+    document.getElementById('btn-cancel-task').addEventListener('click', closeModal)
+
+    document.getElementById('btn-save-task').addEventListener('click', async () => {
+        const title = document.getElementById('modal_title').value
+        const subject = document.getElementById('modal_subject').value
+        const desc = document.getElementById('modal_desc').value
+        const priority = document.getElementById('modal_priority').value
+
+        if (title.trim()) {
+            await store.addTask(title, subject, desc, priority)
+            closeModal()
+            // Reset fields
+            document.getElementById('modal_title').value = ''
+            document.getElementById('modal_subject').value = ''
+            document.getElementById('modal_desc').value = ''
+        }
+    })
+}
+
+export const openModal = () => {
+    document.getElementById('modal-task').classList.add('active')
+}
+
+export const closeModal = () => {
+    document.getElementById('modal-task').classList.remove('active')
+}

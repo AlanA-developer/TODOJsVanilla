@@ -1,3 +1,17 @@
-**/node_modules
-./node_modules
-node_modules
+# Dependencies
+node_modules/
+.idea/
+.vscode/
+
+# Backend and Database
+backend/*.db
+backend/*.db-journal
+backend/bin/
+*.class
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
