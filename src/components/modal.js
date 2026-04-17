@@ -5,6 +5,9 @@ export const appendModal = (container) => {
     modalOverlay.classList.add('modal-overlay')
     modalOverlay.id = 'modal-task'
     
+    // Get today's date for default value in YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0]
+
     modalOverlay.innerHTML = `
         <div class="modal-content">
             <h2 class="modal-title">Nueva Misión</h2>
@@ -16,20 +19,26 @@ export const appendModal = (container) => {
                 <label class="form-label">Categoría</label>
                 <input type="text" id="modal_subject" class="form-input" placeholder="Ej: Diseño / Backend">
             </div>
-            <div class="form-group">
-                <label class="form-label">Prioridad</label>
-                <select id="modal_priority" class="form-input">
-                    <option value="low">Insignificante</option>
-                    <option value="medium">Importante</option>
-                    <option value="high">Crítica</option>
-                </select>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+                <div class="form-group">
+                    <label class="form-label">Prioridad</label>
+                    <select id="modal_priority" class="form-input">
+                        <option value="low">Insignificante</option>
+                        <option value="medium" selected>Importante</option>
+                        <option value="high">Crítica</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Fecha de Despliegue</label>
+                    <input type="date" id="modal_date" class="form-input" value="${today}">
+                </div>
             </div>
             <div class="form-group">
                 <label class="form-label">Descripción</label>
                 <textarea id="modal_desc" class="form-input" rows="3" placeholder="Detalles estratégicos..."></textarea>
             </div>
             <button class="btn-submit" id="btn-save-task">DESPLEGAR MISIÓN</button>
-            <button style="margin-top: 1rem; width: 100%; border: none; background: none; color: var(--text-muted); cursor: pointer" id="btn-cancel-task">CANCELAR</button>
+            <button style="margin-top: 0.5rem; width: 100%; border: none; background: none; color: var(--text-muted); cursor: pointer; padding: 0.5rem" id="btn-cancel-task">CANCELAR</button>
         </div>
     `
     container.appendChild(modalOverlay)
@@ -46,14 +55,16 @@ export const appendModal = (container) => {
         const subject = document.getElementById('modal_subject').value
         const desc = document.getElementById('modal_desc').value
         const priority = document.getElementById('modal_priority').value
+        const date = document.getElementById('modal_date').value
 
         if (title.trim()) {
-            await store.addTask(title, subject, desc, priority)
+            await store.addTask(title, subject, desc, priority, date)
             closeModal()
             // Reset fields
             document.getElementById('modal_title').value = ''
             document.getElementById('modal_subject').value = ''
             document.getElementById('modal_desc').value = ''
+            document.getElementById('modal_date').value = today
         }
     })
 }

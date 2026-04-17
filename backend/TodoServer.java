@@ -43,9 +43,20 @@ public class TodoServer {
                     "subject TEXT," +
                     "description TEXT," +
                     "priority TEXT," +
-                    "status TEXT DEFAULT 'pending'" +
+                    "status TEXT DEFAULT 'pending'," +
+                    "dueDate TEXT" +
                     ")";
             stmt.execute(sql);
+
+            // Migration: Add column if it doesn't exist (safety for existing DBs)
+            try {
+                stmt.execute("ALTER TABLE tasks ADD COLUMN dueDate TEXT");
+            } catch (SQLException e) {
+                // Column probably already exists
+            }
+
+            // Set default date for existing tasks if they have NULL dueDate
+            stmt.execute("UPDATE tasks SET dueDate = '2026-04-16' WHERE dueDate IS NULL");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -116,7 +127,8 @@ public class TodoServer {
                             rs.getString("subject"),
                             rs.getString("description"),
                             rs.getString("priority"),
-                            rs.getString("status")
+                            rs.getString("status"),
+                            rs.getString("dueDate")
                     ));
                 }
             }
@@ -124,7 +136,7 @@ public class TodoServer {
         }
 
         private void addTask(Task task) throws SQLException {
-            String sql = "INSERT INTO tasks(title, subject, description, priority, status) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO tasks(title, subject, description, priority, status, dueDate) VALUES(?,?,?,?,?,?)";
             try (Connection conn = DriverManager.getConnection(DB_URL);
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, task.title);
@@ -132,12 +144,13 @@ public class TodoServer {
                 pstmt.setString(3, task.description);
                 pstmt.setString(4, task.priority);
                 pstmt.setString(5, task.status != null ? task.status : "pending");
+                pstmt.setString(6, task.dueDate);
                 pstmt.executeUpdate();
             }
         }
 
         private void updateTask(Task task) throws SQLException {
-            String sql = "UPDATE tasks SET title=?, subject=?, description=?, priority=?, status=? WHERE id=?";
+            String sql = "UPDATE tasks SET title=?, subject=?, description=?, priority=?, status=?, dueDate=? WHERE id=?";
             try (Connection conn = DriverManager.getConnection(DB_URL);
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, task.title);
@@ -145,7 +158,8 @@ public class TodoServer {
                 pstmt.setString(3, task.description);
                 pstmt.setString(4, task.priority);
                 pstmt.setString(5, task.status);
-                pstmt.setInt(6, task.id);
+                pstmt.setString(6, task.dueDate);
+                pstmt.setInt(7, task.id);
                 pstmt.executeUpdate();
             }
         }
@@ -167,14 +181,16 @@ public class TodoServer {
         String description;
         String priority;
         String status;
+        String dueDate;
 
-        public Task(int id, String title, String subject, String description, String priority, String status) {
+        public Task(int id, String title, String subject, String description, String priority, String status, String dueDate) {
             this.id = id;
             this.title = title;
             this.subject = subject;
             this.description = description;
             this.priority = priority;
             this.status = status;
+            this.dueDate = dueDate;
         }
     }
 }

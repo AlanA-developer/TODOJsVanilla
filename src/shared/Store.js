@@ -4,6 +4,13 @@ class TodoStore {
     constructor() {
         this.tasks = [];
         this.listeners = [];
+        const now = new Date();
+        this.currentFilter = { 
+            type: 'day', 
+            year: now.getFullYear(), 
+            month: now.getMonth() + 1, 
+            day: now.getDate() 
+        };
     }
 
     subscribe(listener) {
@@ -11,7 +18,7 @@ class TodoStore {
     }
 
     notify() {
-        this.listeners.forEach(listener => listener(this.tasks));
+        this.listeners.forEach(listener => listener(this.tasks, this.currentFilter));
     }
 
     async refresh() {
@@ -19,8 +26,13 @@ class TodoStore {
         this.notify();
     }
 
-    async addTask(title, subject, description, priority) {
-        const newTask = { title, subject, description, priority, status: 'pending' };
+    setFilter(filter) {
+        this.currentFilter = filter;
+        this.notify();
+    }
+
+    async addTask(title, subject, description, priority, dueDate) {
+        const newTask = { title, subject, description, priority, status: 'pending', dueDate };
         await api.addTask(newTask);
         await this.refresh();
     }
