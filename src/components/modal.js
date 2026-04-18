@@ -1,18 +1,18 @@
-import { store } from '../shared/Store.js'
+import { store } from '../shared/Store.js?v=4.1'
 
 export const appendModal = (container) => {
     const modalOverlay = document.createElement('div')
     modalOverlay.classList.add('modal-overlay')
     modalOverlay.id = 'modal-task'
-    
+
     // Get today's date for default value in YYYY-MM-DD
     const today = new Date().toISOString().split('T')[0]
 
     modalOverlay.innerHTML = `
         <div class="modal-content">
-            <h2 class="modal-title">Nueva Misión</h2>
+            <h2 class="modal-title">Nueva Tarea</h2>
             <div class="form-group">
-                <label class="form-label">Título de la misión</label>
+                <label class="form-label">Título de la tarea</label>
                 <input type="text" id="modal_title" class="form-input" placeholder="Ej: Rediseñar interfaz">
             </div>
             <div class="form-group">
@@ -37,7 +37,11 @@ export const appendModal = (container) => {
                 <label class="form-label">Descripción</label>
                 <textarea id="modal_desc" class="form-input" rows="3" placeholder="Detalles estratégicos..."></textarea>
             </div>
-            <button class="btn-submit" id="btn-save-task">DESPLEGAR MISIÓN</button>
+            <div class="form-group">
+                <label class="form-label">Bitácora Inicial (Notas)</label>
+                <textarea id="modal_notes" class="form-input" rows="2" placeholder="Anotaciones técnicas o razones de la tarea..."></textarea>
+            </div>
+            <button class="btn-submit" id="btn-save-task">CREAR TAREA</button>
             <button style="margin-top: 0.5rem; width: 100%; border: none; background: none; color: var(--text-muted); cursor: pointer; padding: 0.5rem" id="btn-cancel-task">CANCELAR</button>
         </div>
     `
@@ -56,14 +60,16 @@ export const appendModal = (container) => {
         const desc = document.getElementById('modal_desc').value
         const priority = document.getElementById('modal_priority').value
         const date = document.getElementById('modal_date').value
+        const notes = document.getElementById('modal_notes').value
 
         if (title.trim()) {
-            await store.addTask(title, subject, desc, priority, date)
+            await store.addTask(title, subject, desc, priority, date, notes)
             closeModal()
             // Reset fields
             document.getElementById('modal_title').value = ''
             document.getElementById('modal_subject').value = ''
             document.getElementById('modal_desc').value = ''
+            document.getElementById('modal_notes').value = ''
             document.getElementById('modal_date').value = today
         }
     })

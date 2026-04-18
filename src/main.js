@@ -1,8 +1,9 @@
-import { appendSidebar } from './components/sidebar.js'
-import { appendTopBar } from './components/topBar.js'
-import { appendTaskList } from './components/taskList.js'
-import { appendModal, openModal } from './components/modal.js'
-import { store } from './shared/Store.js'
+import { appendSidebar } from './components/sidebar.js?v=4.1'
+import { appendTopBar } from './components/topBar.js?v=4.1'
+import { appendTaskList } from './components/taskList.js?v=4.1'
+import { appendModal, openModal } from './components/modal.js?v=4.1'
+import { appendOnboarding } from './components/onboarding.js?v=4.1'
+import { store } from './shared/Store.js?v=4.1'
 
 const app = document.getElementById('app')
 
@@ -20,6 +21,7 @@ appendTaskList(mainContainer)
 
 // 4. Inyectar Modal y FAB
 appendModal(app)
+appendOnboarding(app)
 
 const fab = document.createElement('div')
 fab.classList.add('fab')

@@ -1,4 +1,4 @@
-import { store } from '../shared/Store.js'
+import { store } from '../shared/Store.js?v=4.1'
 
 export const appendSidebar = (container) => {
     const sidebar = document.createElement('aside')
@@ -14,7 +14,7 @@ export const appendSidebar = (container) => {
         const groups = tasks.reduce((acc, task) => {
             if (!task.dueDate) return acc
             const [y, m, d] = task.dueDate.split('-').map(Number)
-            
+
             if (!acc[y]) acc[y] = {}
             if (!acc[y][m]) acc[y][m] = new Set()
             acc[y][m].add(d)
@@ -22,15 +22,14 @@ export const appendSidebar = (container) => {
         }, {})
 
         const years = Object.keys(groups).sort((a, b) => b - a)
-
         const todayFilter = `{type: 'day', year: ${currentYear}, month: ${currentMonth}, day: ${now.getDate()}}`
 
         sidebar.innerHTML = `
             <div class="logo-area">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                 </svg>
-                <span>SIRIUS-TODO</span>
+                <span>SIRIUS-TASK</span>
             </div>
 
             <nav class="nav-container">
@@ -59,11 +58,13 @@ export const appendSidebar = (container) => {
 
             <div class="stats-container" id="stats-widget"></div>
         `
-        updateStats(tasks)
+        const filteredTasks = filterTasks(tasks, currentFilter)
+        updateStats(filteredTasks)
     }
 
-    // Expose filter setter to window for onclick (simple way for vanilla JS)
+    // Expose helpers to window
     window.setFilter = (filter) => store.setFilter(filter)
+    window.switchProfile = (id) => store.setActiveProfile(id)
 
     store.subscribe((tasks, filter) => {
         render(tasks, filter)
@@ -73,7 +74,7 @@ export const appendSidebar = (container) => {
 function renderCurrentMonthDays(groups, year, month, currentFilter) {
     const days = groups[year]?.[month]
     if (!days) return '<div class="nav-item empty">Sin tareas hoy</div>'
-    
+
     return Array.from(days).sort((a, b) => a - b).map(day => `
         <div class="nav-item sub-item ${currentFilter.type === 'day' && currentFilter.day === day ? 'active' : ''}" 
              onclick="window.setFilter({type: 'day', year: ${year}, month: ${month}, day: ${day}})">
@@ -86,7 +87,7 @@ function renderCurrentMonthDays(groups, year, month, currentFilter) {
 function renderYearsWithMonths(groups, currentFilter) {
     const years = Object.keys(groups).sort((a, b) => b - a)
     const monthsNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-    
+
     return years.map(year => {
         const months = Object.keys(groups[year]).sort((a, b) => b - a)
         return `
@@ -101,7 +102,7 @@ function renderYearsWithMonths(groups, currentFilter) {
                         <div class="nav-item sub-item ${currentFilter.type === 'month' && currentFilter.month === Number(month) && currentFilter.year === Number(year) ? 'active' : ''}" 
                              onclick="window.setFilter({type: 'month', year: ${Number(year)}, month: ${Number(month)}})">
                             <div class="dot small"></div>
-                            <span>${monthsNames[month-1]}</span>
+                            <span>${monthsNames[month - 1]}</span>
                         </div>
                     `).join('')}
                 </div>
@@ -129,4 +130,18 @@ function updateStats(tasks) {
             </div>
         `
     }
+}
+
+function filterTasks(tasks, filter) {
+    if (!filter || filter.type === 'all') return tasks
+    return tasks.filter(task => {
+        if (!task.dueDate) return false
+        const [y, m, d] = task.dueDate.split('-').map(Number)
+        switch (filter.type) {
+            case 'day': return y === filter.year && m === filter.month && d === filter.day
+            case 'month': return y === filter.year && m === filter.month
+            case 'year': return y === filter.year
+            default: return true
+        }
+    })
 }
