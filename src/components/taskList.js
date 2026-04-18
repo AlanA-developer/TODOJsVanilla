@@ -264,7 +264,9 @@ function renderFilteredTasks(tasks, container, filter, taskIds) {
     })
 }
 
-function showJarvisHUD(task) {
+async function showJarvisHUD(task) {
+    // Import GSAP from node_modules for offline support
+    const { gsap } = await import('../../node_modules/gsap/index.js');
     let overlay = document.getElementById('jarvis-hud')
     if (!overlay) {
         overlay = document.createElement('div')
@@ -348,8 +350,8 @@ function showJarvisHUD(task) {
                     <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
             </div>
-            <div class="tree-node-content" contenteditable="true" spellcheck="false" title="Haz clic para editar">${cleanText}</div>
-            <div class="node-drag-handle" title="Arrastrar nodo">
+            <div class="tree-node-content" contenteditable="true" spellcheck="false" title="Haz clic para editar" style="flex: 1; outline: none; color: var(--text-main); font-size: 0.95rem; line-height: 1.4;">${cleanText}</div>
+            <div class="node-drag-handle" title="Arrastrar nodo" style="margin-left: 10px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2">
                     <circle cx="9" cy="5" r="1.5"></circle><circle cx="9" cy="12" r="1.5"></circle><circle cx="9" cy="19" r="1.5"></circle>
                     <circle cx="15" cy="5" r="1.5"></circle><circle cx="15" cy="12" r="1.5"></circle><circle cx="15" cy="19" r="1.5"></circle>
@@ -361,12 +363,10 @@ function showJarvisHUD(task) {
         node.style.left = '65%'
         node.style.top = '50%'
         node.style.marginTop = `${(index * spacing) - offset}px`
-        node.style.transform = 'translate(0, -50%)'
+        // Use a fixed transform that won't be overwritten by GSAP or other classes
+        node.style.transform = 'translateY(-50%)'
 
         overlay.appendChild(node)
-
-        // Show nodes with delay
-        setTimeout(() => node.classList.add('visible'), 800 + (index * 200))
 
         // Interactivity
         const checker = node.querySelector('.node-checker')
@@ -405,26 +405,74 @@ function showJarvisHUD(task) {
         const connector = { node, path }
         activeConnectors.push(connector)
 
+        let isAnimating = true;
         const updateThisLine = () => {
             const cardRect = virtualCard.getBoundingClientRect()
             const nodeRect = node.getBoundingClientRect()
+            const svgRect = svg.getBoundingClientRect()
 
-            const startX = cardRect.right
-            const startY = cardRect.top + (cardRect.height / 2)
-            const endX = nodeRect.left
-            const endY = nodeRect.top + (nodeRect.height / 2)
+            const startX = cardRect.right - svgRect.left
+            const startY = cardRect.top + (cardRect.height / 2) - svgRect.top
+            const endX = nodeRect.left - svgRect.left
+            const endY = nodeRect.top + (nodeRect.height / 2) - svgRect.top
 
             const cp1x = startX + (endX - startX) / 2
             const cp2x = endX - (endX - startX) / 2
             const d = `M ${startX} ${startY} C ${cp1x} ${startY}, ${cp2x} ${endY}, ${endX} ${endY}`
             path.setAttribute('d', d)
+
+            // Only force dashoffset to 0 if we are NOT in the middle of the initial animation
+            if (!isAnimating) {
+                const newLength = path.getTotalLength()
+                path.style.strokeDasharray = `${newLength}`
+                path.style.strokeDashoffset = "0"
+            }
         }
 
-        // Draw initial line
-        setTimeout(updateThisLine, 1000 + (index * 150))
+        updateThisLine()
+
+        // GSAP Animation for the "Thread" effect
+        const length = path.getTotalLength()
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length, opacity: 1 })
+        gsap.set(node, { opacity: 0 })
+
+        const tl = gsap.timeline({ delay: 0.6 + (index * 0.2) })
+
+        tl.to(path, {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            ease: "power2.inOut",
+            onUpdate: () => {
+                // Update dasharray during animation to handle any simultaneous movement
+                const currentLength = path.getTotalLength()
+                path.style.strokeDasharray = `${currentLength}`
+            },
+            onComplete: () => {
+                isAnimating = false;
+                updateThisLine();
+            }
+        })
+            .to(node, {
+                opacity: 1,
+                duration: 0.4,
+                ease: "none"
+            }, "-=0.1")
+            .to(node, {
+                borderColor: "#00f2fe",
+                boxShadow: "0 0 40px rgba(0, 242, 254, 0.6), inset 0 0 20px rgba(0, 242, 254, 0.4)",
+                duration: 0.3,
+                yoyo: true,
+                repeat: 1
+            })
 
         // Enable node dragging via specific handle
         setupDraggable(node, updateThisLine, '.node-drag-handle')
+
+        // Use ResizeObserver to update line when node content expands
+        const resizeObserver = new ResizeObserver(() => {
+            updateThisLine()
+        })
+        resizeObserver.observe(node)
     });
 
     // Enable main card dragging (updates ALL lines)
@@ -432,14 +480,22 @@ function showJarvisHUD(task) {
         activeConnectors.forEach(c => {
             const cardRect = virtualCard.getBoundingClientRect()
             const nodeRect = c.node.getBoundingClientRect()
-            const startX = cardRect.right
-            const startY = cardRect.top + (cardRect.height / 2)
-            const endX = nodeRect.left
-            const endY = nodeRect.top + (nodeRect.height / 2)
+            const svgRect = svg.getBoundingClientRect()
+
+            const startX = cardRect.right - svgRect.left
+            const startY = cardRect.top + (cardRect.height / 2) - svgRect.top
+            const endX = nodeRect.left - svgRect.left
+            const endY = nodeRect.top + (nodeRect.height / 2) - svgRect.top
+
             const cp1x = startX + (endX - startX) / 2
             const cp2x = endX - (endX - startX) / 2
             const d = `M ${startX} ${startY} C ${cp1x} ${startY}, ${cp2x} ${endY}, ${endX} ${endY}`
             c.path.setAttribute('d', d)
+
+            // CRITICAL: Update stroke-dasharray to match the new length so it stretches
+            const newLength = c.path.getTotalLength()
+            c.path.style.strokeDasharray = `${newLength}`
+            c.path.style.strokeDashoffset = "0"
         })
     })
 

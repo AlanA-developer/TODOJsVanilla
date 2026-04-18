@@ -3,8 +3,9 @@ import { api } from './api.js';
 class TodoStore {
     constructor() {
         this.tasks = [];
-        this.profiles = [];
+        this.profiles = []; // Revert to empty array to avoid blocking UI
         this.activeProfileId = null;
+        this.isLoadingProfiles = true; // New flag to track initial load
         this.isOnline = true;
         this.listeners = [];
 
@@ -30,7 +31,7 @@ class TodoStore {
     }
 
     notify() {
-        this.listeners.forEach(listener => listener(this.tasks, this.currentFilter, this.profiles, this.activeProfileId, this.isOnline));
+        this.listeners.forEach(listener => listener(this.tasks, this.currentFilter, this.profiles, this.activeProfileId, this.isOnline, this.isLoadingProfiles));
     }
 
     saveStateToLocal() {
@@ -47,7 +48,8 @@ class TodoStore {
         if (local) {
             const state = JSON.parse(local);
             this.tasks = state.tasks || [];
-            this.profiles = state.profiles || [];
+            // We don't load profiles from local to avoid showing onboarding
+            // while the API is still fetching. We keep this.profiles as null.
             this.activeProfileId = state.activeProfileId || null;
         }
     }
@@ -56,16 +58,18 @@ class TodoStore {
         try {
             // 1. Fetch Profiles
             const fetchedProfiles = await api.getProfiles();
+            this.isLoadingProfiles = false; // Mark as finished regardless of result
 
-            // If no profiles exist, we need to trigger onboarding
+            // If no profiles exist in backend, we MUST trigger onboarding
             if (!fetchedProfiles || fetchedProfiles.length === 0) {
                 this.profiles = [];
                 this.activeProfileId = null;
+                this.saveStateToLocal();
                 this.notify();
                 return;
+            } else {
+                this.profiles = fetchedProfiles;
             }
-
-            this.profiles = fetchedProfiles;
 
             // 2. Set default active profile if none
             if (!this.activeProfileId && this.profiles.length > 0) {

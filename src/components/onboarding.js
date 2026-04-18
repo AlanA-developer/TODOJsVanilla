@@ -5,7 +5,9 @@ export const appendOnboarding = (container) => {
     overlay.id = 'onboarding-overlay';
     overlay.className = 'onboarding-overlay';
 
-    const render = (profiles) => {
+    const render = (profiles, isLoading) => {
+        if (isLoading) return;
+
         if (profiles && profiles.length > 0) {
             overlay.classList.remove('visible');
             setTimeout(() => overlay.remove(), 500);
@@ -94,19 +96,23 @@ export const appendOnboarding = (container) => {
 
     container.appendChild(overlay);
 
-    store.subscribe((tasks, filter, profiles) => {
+    store.subscribe((tasks, filter, profiles, activeId, isOnline, isLoading) => {
+        if (isLoading) return;
+
         if (profiles && profiles.length > 0) {
             if (overlay.classList.contains('visible')) {
                 overlay.classList.remove('visible');
                 setTimeout(() => overlay.remove(), 500);
             }
         } else {
-            render(profiles);
+            render(profiles, isLoading);
         }
     });
 
     // Initial check
-    if (!store.profiles || store.profiles.length === 0) {
-        render([]);
+    if (store.profiles && store.profiles.length > 0) {
+        overlay.remove();
+    } else if (!store.isLoadingProfiles) {
+        render(store.profiles || [], false);
     }
 };
