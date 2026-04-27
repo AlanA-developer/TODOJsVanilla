@@ -1,4 +1,4 @@
-import { store } from '../shared/Store.js?v=4.1'
+import { store } from '../shared/Store.js'
 
 export const appendSidebar = (container) => {
     const sidebar = document.createElement('aside')
@@ -10,8 +10,8 @@ export const appendSidebar = (container) => {
         const currentYear = now.getFullYear()
         const currentMonth = now.getMonth() + 1 // 1-indexed
 
-        // Group tasks for navigation
-        const groups = tasks.reduce((acc, task) => {
+        const parentTasks = tasks.filter(t => !t.parentId);
+        const groups = parentTasks.reduce((acc, task) => {
             if (!task.dueDate) return acc
             const [y, m, d] = task.dueDate.split('-').map(Number)
 
@@ -42,14 +42,22 @@ export const appendSidebar = (container) => {
                 </div>
 
                 <div class="nav-section">
-                    <div class="section-label">TAREAS POR DÍA</div>
+                    <div class="section-label">MISSIONS BY DAY</div>
                     <div class="nav-group-items">
                         ${renderCurrentMonthDays(groups, currentYear, currentMonth, currentFilter)}
                     </div>
                 </div>
 
                 <div class="nav-section">
-                    <div class="section-label">HISTÓRICO (POR AÑO)</div>
+                    <div class="section-label">RUTINAS & PLANTILLAS</div>
+                    <div class="nav-item" id="manage-protocols-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                        <span>Gestionar Plantillas</span>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="section-label">ARCHIVE (BY YEAR)</div>
                     <div class="nav-group-items">
                         ${renderYearsWithMonths(groups, currentFilter)}
                     </div>
@@ -60,9 +68,12 @@ export const appendSidebar = (container) => {
         `
         const filteredTasks = filterTasks(tasks, currentFilter)
         updateStats(filteredTasks)
+
+        document.getElementById('manage-protocols-btn').onclick = () => {
+            window.dispatchEvent(new CustomEvent('open-protocols-modal'));
+        };
     }
 
-    // Expose helpers to window
     window.setFilter = (filter) => store.setFilter(filter)
     window.switchProfile = (id) => store.setActiveProfile(id)
 
@@ -73,13 +84,13 @@ export const appendSidebar = (container) => {
 
 function renderCurrentMonthDays(groups, year, month, currentFilter) {
     const days = groups[year]?.[month]
-    if (!days) return '<div class="nav-item empty">Sin tareas hoy</div>'
+    if (!days) return '<div class="nav-item empty">No missions today</div>'
 
     return Array.from(days).sort((a, b) => a - b).map(day => `
         <div class="nav-item sub-item ${currentFilter.type === 'day' && currentFilter.day === day ? 'active' : ''}" 
              onclick="window.setFilter({type: 'day', year: ${year}, month: ${month}, day: ${day}})">
             <div class="dot"></div>
-            <span>Día ${day}</span>
+            <span>Day ${day}</span>
         </div>
     `).join('')
 }
@@ -95,7 +106,7 @@ function renderYearsWithMonths(groups, currentFilter) {
                 <div class="nav-item group-header ${currentFilter.type === 'year' && currentFilter.year === Number(year) ? 'active' : ''}" 
                      onclick="window.setFilter({type: 'year', year: ${Number(year)}})">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <span>Archivo ${year}</span>
+                    <span>Archive ${year}</span>
                 </div>
                 <div class="nested-items">
                     ${months.map(month => `
@@ -121,7 +132,7 @@ function updateStats(tasks) {
         statsWidget.innerHTML = `
             <div class="stat-item">
                 <div class="stat-label">
-                    <span>Progreso Total</span>
+                    <span>Total Progress</span>
                     <span>${percent}%</span>
                 </div>
                 <div class="progress-bar">

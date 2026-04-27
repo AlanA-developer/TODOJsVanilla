@@ -1,101 +1,91 @@
-const BASE_URL = 'http://localhost:8080/api';
-const TASKS_URL = `${BASE_URL}/tasks`;
-const PROFILES_URL = `${BASE_URL}/profiles`;
+const API_URL = 'http://localhost:8080';
 
 export const api = {
-    // --- TASKS ---
-    async getTasks(profileId = null) {
-        try {
-            const url = profileId ? `${TASKS_URL}?profileId=${profileId}` : TASKS_URL;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching tasks:', error);
-            throw error;
-        }
-    },
-
-    async addTask(task) {
-        try {
-            const response = await fetch(TASKS_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(task)
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error adding task:', error);
-            throw error;
-        }
-    },
-
-    async updateTask(task) {
-        try {
-            const response = await fetch(TASKS_URL, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(task)
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error updating task:', error);
-            throw error;
-        }
-    },
-
-    async deleteTask(id) {
-        try {
-            const response = await fetch(`${TASKS_URL}?id=${id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error deleting task:', error);
-            throw error;
-        }
-    },
-
-    // --- PROFILES ---
+    // ---- PROFILES ----
     async getProfiles() {
-        try {
-            const response = await fetch(PROFILES_URL);
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching profiles:', error);
-            throw error;
-        }
+        const response = await fetch(`${API_URL}/profiles`);
+        if (!response.ok) throw new Error('Failed to fetch profiles');
+        return response.json();
     },
 
     async addProfile(profile) {
-        try {
-            const response = await fetch(PROFILES_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(profile)
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error adding profile:', error);
-            throw error;
-        }
+        const response = await fetch(`${API_URL}/profiles`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(profile)
+        });
+        if (!response.ok) throw new Error('Failed to add profile');
+        return response.json();
     },
 
     async deleteProfile(id) {
-        try {
-            const response = await fetch(`${PROFILES_URL}?id=${id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            return await response.json();
-        } catch (error) {
-            console.error('Error deleting profile:', error);
-            throw error;
-        }
+        const response = await fetch(`${API_URL}/profiles/${id}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Failed to delete profile');
+    },
+
+    // ---- TASKS ----
+    async getTasks(profileId) {
+        const url = profileId ? `${API_URL}/tasks?profileId=${profileId}` : `${API_URL}/tasks`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch tasks');
+        return response.json();
+    },
+
+    async addTask(task) {
+        const response = await fetch(`${API_URL}/tasks`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(task)
+        });
+        if (!response.ok) throw new Error('Failed to add task');
+        return response.json();
+    },
+
+    async updateTask(task) {
+        const response = await fetch(`${API_URL}/tasks/${task.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(task)
+        });
+        if (!response.ok) throw new Error('Failed to update task');
+        return response.json();
+    },
+
+    async deleteTask(id) {
+        const response = await fetch(`${API_URL}/tasks/${id}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Failed to delete task');
+    },
+
+    // ---- TEMPLATES ----
+    async getTemplates() {
+        const response = await fetch(`${API_URL}/templates`);
+        if (!response.ok) throw new Error('Failed to fetch templates');
+        return response.json();
+    },
+
+    async createTemplate(template) {
+        const response = await fetch(`${API_URL}/templates`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(template)
+        });
+        if (!response.ok) throw new Error('Failed to create template');
+        return response.json();
+    },
+
+    async applyTemplate(templateId, profileId) {
+        const response = await fetch(`${API_URL}/templates/apply`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ templateId, profileId })
+        });
+        if (!response.ok) throw new Error('Failed to apply template');
+        return response.json();
+    },
+
+    async deleteTemplate(id) {
+        const response = await fetch(`${API_URL}/templates/${id}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Failed to delete template');
+        return response.json();
     }
 };

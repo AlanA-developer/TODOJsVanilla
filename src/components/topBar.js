@@ -1,4 +1,5 @@
-import { store } from '../shared/Store.js?v=4.1'
+import { store } from '../shared/Store.js'
+import { showToast } from './toast.js'
 
 export const appendTopBar = (container) => {
     const topBar = document.createElement('div')
@@ -99,6 +100,7 @@ export const appendTopBar = (container) => {
     window.switchProfile = (id) => {
         dropdownOpen = false;
         store.setActiveProfile(id);
+        showToast('Perfil cambiado')
     }
 
     const render = (profiles, activeProfileId, isOnline, filter, tasks = []) => {

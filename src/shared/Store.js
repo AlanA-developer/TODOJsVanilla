@@ -3,9 +3,9 @@ import { api } from './api.js';
 class TodoStore {
     constructor() {
         this.tasks = [];
-        this.profiles = []; // Revert to empty array to avoid blocking UI
+        this.profiles = []; 
         this.activeProfileId = null;
-        this.isLoadingProfiles = true; // New flag to track initial load
+        this.isLoadingProfiles = true; 
         this.isOnline = true;
         this.listeners = [];
 
@@ -16,13 +16,12 @@ class TodoStore {
             year: now.getFullYear(),
             month: now.getMonth() + 1,
             day: now.getDate(),
-            priority: null, // 'high', 'medium', 'low'
+            priority: null,
             subject: null,
             special: null
         };
         this.currentFilter = { ...this.initialFilter };
 
-        // Initialize state from local storage for fast feedback
         this.loadStateFromLocal();
     }
 
@@ -48,40 +47,33 @@ class TodoStore {
         if (local) {
             const state = JSON.parse(local);
             this.tasks = state.tasks || [];
-            // We don't load profiles from local to avoid showing onboarding
-            // while the API is still fetching. We keep this.profiles as null.
+            this.profiles = state.profiles || []; // Load profiles from cache
             this.activeProfileId = state.activeProfileId || null;
         }
     }
 
     async refresh() {
-        try {
-            // 1. Fetch Profiles
-            const fetchedProfiles = await api.getProfiles();
-            this.isLoadingProfiles = false; // Mark as finished regardless of result
+        this.isLoadingProfiles = true;
+        this.notify(); // Notify that loading has started
 
-            // If no profiles exist in backend, we MUST trigger onboarding
+        try {
+            const fetchedProfiles = await api.getProfiles();
+            
             if (!fetchedProfiles || fetchedProfiles.length === 0) {
                 this.profiles = [];
                 this.activeProfileId = null;
-                this.saveStateToLocal();
-                this.notify();
-                return;
             } else {
                 this.profiles = fetchedProfiles;
+                if (!this.activeProfileId || !this.profiles.find(p => p.id === this.activeProfileId)) {
+                    this.activeProfileId = this.profiles[0].id;
+                }
             }
 
-            // 2. Set default active profile if none
-            if (!this.activeProfileId && this.profiles.length > 0) {
-                this.activeProfileId = this.profiles[0].id;
-            }
-
-            // 3. Fetch Tasks for the active profile
             if (this.activeProfileId) {
                 const fetchedTasks = await api.getTasks(this.activeProfileId);
-                if (fetchedTasks) {
-                    this.tasks = fetchedTasks;
-                }
+                this.tasks = fetchedTasks || [];
+            } else {
+                this.tasks = [];
             }
 
             this.isOnline = true;
@@ -89,9 +81,9 @@ class TodoStore {
         } catch (e) {
             console.warn('API error, using local cache', e);
             this.isOnline = false;
-            this.loadStateFromLocal();
         } finally {
-            this.notify();
+            this.isLoadingProfiles = false;
+            this.notify(); // Final notification with all data
         }
     }
 
@@ -108,7 +100,7 @@ class TodoStore {
     resetFilters() {
         this.currentFilter = {
             query: '',
-            type: 'all', // Changed from 'day' to 'all' to truly clear
+            type: 'all',
             year: null,
             month: null,
             day: null,
@@ -119,18 +111,18 @@ class TodoStore {
         this.notify();
     }
 
-    async addTask(title, subject, description, priority, dueDate, notes = '') {
+    async addTask(taskData) {
         const newTask = {
             profileId: this.activeProfileId,
-            title,
-            subject,
-            description,
-            priority,
             status: 'pending',
-            dueDate,
-            notes
+            ...taskData
         };
         await api.addTask(newTask);
+        await this.refresh();
+    }
+
+    async updateTask(task) {
+        await api.updateTask(task);
         await this.refresh();
     }
 
@@ -159,17 +151,16 @@ class TodoStore {
         await this.refresh();
     }
 
-    // Profile Management
     async createProfile(name, icon = 'briefcase') {
         await api.addProfile({ name, icon });
         await this.refresh();
     }
 
     async deleteProfile(id) {
-        if (this.profiles.length <= 1) return; // Keep at least one
+        if (this.profiles.length <= 1) return;
         await api.deleteProfile(id);
         if (this.activeProfileId === id) {
-            this.activeProfileId = null; // refresh will pick a new one
+            this.activeProfileId = null;
         }
         await this.refresh();
     }
